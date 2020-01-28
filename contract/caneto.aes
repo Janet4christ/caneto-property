@@ -1,0 +1,27 @@
+contract AeCommerce =
+  
+  record purchase =
+    { buyerAddress : address,
+      amount       : int }
+      
+  record state =
+    { purchases       : map(int, purchase),
+      purchasesLength : int }
+      
+  entrypoint init() =
+    { purchases = {},
+      purchasesLength = 0 }
+      
+  entrypoint getPurchase(index : int) : purchase =
+    switch(Map.lookup(index, state.purchases))
+      None    => abort("There was no purchase with this index registered.")
+      Some(x) => x
+      
+  stateful entrypoint registerPurchase(amount' : int) =
+    let purchase = { buyerAddress = Call.caller, amount = amount'}
+    let index = getPurchasesLength() + 1
+    put(state{ purchases[index] = purchase, purchasesLength = index })
+    
+  entrypoint getPurchasesLength() : int =
+    state.purchasesLength
+    
