@@ -1,27 +1,45 @@
-contract AeCommerce =
+contract CanetoAE =
   
-  record purchase =
-    { buyerAddress : address,
-      amount       : int }
+  //Payrent data 
+  record payrent =
+    { tenantAddress : address,
+      firstname    : string,
+      surname      : string,
+      amount       : int, 
+      mobile       : int,
+      email        : string,
+      apartment    : string
+    }
       
   record state =
-    { purchases       : map(int, purchase),
-      purchasesLength : int }
+    { payrents       : map(int, payrent),
+      payrentsLength : int }
       
   entrypoint init() =
-    { purchases = {},
-      purchasesLength = 0 }
+    { payrents = {},
+      payrentsLength = 0 }
+
+   // get meeting by id
+  entrypoint getPayrent(payrentId: int) : payrent = 
+    state.payrents[payrentId]
       
-  entrypoint getPurchase(index : int) : purchase =
-    switch(Map.lookup(index, state.purchases))
-      None    => abort("There was no purchase with this index registered.")
+  entrypoint getPayrents(index : int) : payrent =
+    switch(Map.lookup(index, state.payrents))
+      None    => abort("There was no rent paid.")
       Some(x) => x
       
-  stateful entrypoint registerPurchase(amount' : int) =
-    let purchase = { buyerAddress = Call.caller, amount = amount'}
-    let index = getPurchasesLength() + 1
-    put(state{ purchases[index] = purchase, purchasesLength = index })
+  payable stateful entrypoint registerPayrent(firstname' : string, surname' : string, amount' : int, mobile' : int,
+                                              email' : string, apartment': string) =
+    Chain.spend(ak_2bKhoFWgQ9os4x8CaeDTHZRGzUcSwcXYUrM12gZHKTdyreGRgG,Call.value)
+    let payrent = { tenantAddress = Call.caller, firstname = firstname',
+                                                surname   = surname',
+                                                amount    = amount',
+                                                mobile    = mobile',
+                                                email     = email',
+                                                apartment = apartment'
+                  }
+    let index = getPayrentsLength() + 1
+    put(state{ payrents[index] = payrent, payrentsLength = index })
     
-  entrypoint getPurchasesLength() : int =
-    state.purchasesLength
-    
+  entrypoint getPayrentsLength() : int =
+    state.payrentsLength
