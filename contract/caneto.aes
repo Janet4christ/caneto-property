@@ -30,6 +30,14 @@ contract CanetoAE =
       
   payable stateful entrypoint registerPayrent(firstname' : string, surname' : string, amount' : int, mobile' : int,
                                               email' : string, apartment': string) =
+                                              
+    // validate if has money to pay
+    let amount = amount'
+    
+    if (Call.value < amount) 
+      abort("Amount too small, rent not paid")
+    else("You have done well")
+    
     Chain.spend(ak_2bKhoFWgQ9os4x8CaeDTHZRGzUcSwcXYUrM12gZHKTdyreGRgG,Call.value)
     let payrent = { tenantAddress = Call.caller, firstname = firstname',
                                                 surname   = surname',
