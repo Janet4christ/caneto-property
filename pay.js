@@ -69,7 +69,7 @@ e.preventDefault();
 
 
 // client = await Ae.Aepp();
-  await contractCall('register-submit',[ amount], amount*1000000000000000000);
+  await contractCall('registerPayrent',[ amount], amount*1000000000000000000);
 
 
 var hasError = false; ``
