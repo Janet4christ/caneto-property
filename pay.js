@@ -58,7 +58,7 @@ async function contractCall(func, args, value) {
 }
   
 //JQuery Register process
-$("#register-submit").click(function (e) {
+$("#register-submit").click(function async (e) {
 e.preventDefault();
 
 
@@ -66,7 +66,7 @@ client = await Ae.Aepp();
   await contractCall('register-submit',[ amount], amount*1000000000000000000);
 
 
-var hasError = false;
+var hasError = false; ``
 
 //Checking if firstname is entered
 var firstname = $("#firstname").val();
