@@ -19,7 +19,6 @@ contract CanetoAE =
     { payrents = {},
       payrentsLength = 0 }
 
-   // get meeting by id
   entrypoint getPayrent(payrentId: int) : payrent = 
     state.payrents[payrentId]
       
