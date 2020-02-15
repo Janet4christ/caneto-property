@@ -64,11 +64,11 @@ window.addEventListener('load', async () => {
 })
   
 //JQuery Register process
-$("#register-submit").click(function async (e) {
+$("#register-submit").click( async (e) => {
 e.preventDefault();
 
 
-client = await Ae.Aepp();
+// client = await Ae.Aepp();
   await contractCall('register-submit',[ amount], amount*1000000000000000000);
 
 
