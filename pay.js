@@ -64,17 +64,23 @@ async function contractCall(func, args, value) {
   const calledSet = await contract.call(func, args, {amount: value}).catch(e => console.error(e));
   return calledSet;
 }
+
+
+window.addEventListener('load', async () => {
+  client = await Ae.Aepp();
+  console.log("finished loading")
+})
   
 //JQuery Register process
-$("#register-submit").click(function (e) {
+$("#register-submit").click( async (e) => {
 e.preventDefault();
 
 
-client = await Ae.Aepp();
-  await contractCall('register-submit',[ amount], amount*1000000000000000000);
+// client = await Ae.Aepp();
+  await contractCall('registerPayrent',[ amount], amount*1000000000000000000);
 
 
-var hasError = false;
+var hasError = false; ``
 
 //Checking if firstname is entered
 var firstname = $("#firstname").val();
